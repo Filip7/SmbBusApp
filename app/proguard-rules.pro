@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model
+-keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model.BusLine
+-keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model.Departure

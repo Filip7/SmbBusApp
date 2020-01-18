@@ -87,7 +87,7 @@ class BusLineListFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: Model.BusLine?)
+        fun onListFragmentInteraction(item: Model.BusLine?, view: View)
     }
 
 }

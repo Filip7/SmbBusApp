@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -38,7 +40,6 @@ def butterknife_version = "10.2.0"
 def fresco_version = "2.0.0"
 def retrofit_version = "2.7.1"
 def nav_version = "2.1.0"
-
 
 dependencies {
     // Dagger

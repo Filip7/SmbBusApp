@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.dbflow5.config.FlowConfig
 import com.dbflow5.config.FlowManager
 import com.dbflow5.structure.save
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -24,8 +26,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
-import tvz.filip.milkovic.smbraspored.ui.screens.busLineDetail.BusLineDetailFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragmentDirections
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainView
 import tvz.filip.milkovic.smbraspored.ui.screens.main.presenter.MainActivityPresenter
@@ -79,6 +81,9 @@ class MainActivityView : AppCompatActivity(), MainView,
                 .build()
         )
 
+        // Fresco initialization
+        Fresco.initialize(this)
+
         fetchAllBusLines()
     }
 
@@ -121,13 +126,10 @@ class MainActivityView : AppCompatActivity(), MainView,
         disposable?.dispose()
     }
 
-    override fun onListFragmentInteraction(item: Model.BusLine?) {
-        Log.i(TAG, item.toString())
-        val newFragment = BusLineDetailFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_host_fragment, newFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    override fun onListFragmentInteraction(item: Model.BusLine?, view: View) {
+        val action = BusLineListFragmentDirections.actionNavBusLineListToBusLineDetailFragment(item)
+
+        view.findNavController().navigate(action)
     }
 
     private fun fetchAllBusLines() {
