@@ -23,3 +23,6 @@
 -keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model
 -keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model.BusLine
 -keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model.Departure
+-keepnames data class tvz.filip.milkovic.smbraspored.shared.model.Model.FavouriteBusLine
+
+-keep class * extends com.raizlabs.android.dbflow.config.DatabaseHolder { *; }

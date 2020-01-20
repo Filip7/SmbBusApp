@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    tools:context=".ui.screens.busLineCard.BusLineCardFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/addToFavourites"
+                style="?android:attr/starStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColorHighlight="#4CAF50"
+                android:textColorLink="#4CAF50" />
+
+            <TextView
+                android:id="@+id/cardNameOfBusLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name of the line" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sljedeci polazak iz {}: " />
+
+            <TextView
+                android:id="@+id/nextDepartureFromRoot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sljedeci polazak iz {}" />
+
+            <TextView
+                android:id="@+id/nextDepartureFromDest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00" />
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>

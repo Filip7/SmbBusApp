@@ -9,15 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dbflow5.query.list
-import com.dbflow5.query.select
+import com.raizlabs.android.dbflow.kotlinextensions.from
+import com.raizlabs.android.dbflow.kotlinextensions.list
+import com.raizlabs.android.dbflow.kotlinextensions.select
 import tvz.filip.milkovic.smbraspored.R
+import tvz.filip.milkovic.smbraspored.shared.model.Departure_Table
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [BusLineListFragment.OnListFragmentInteractionListener] interface.
+ * [BusLineListFragment.OnBusLineListFragmentInteractionListener] interface.
  */
 class BusLineListFragment : Fragment() {
 
@@ -30,7 +32,11 @@ class BusLineListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        localBusLinesList = (select from Model.BusLine::class).list
+        localBusLinesList = (select.from(Model.BusLine::class)).list
+        localBusLinesList.forEach {
+            it.departures =
+                (select.from(Model.Departure::class).where(Departure_Table.busLineId.eq(it.id))).list
+        }
         localBusLinesList.sortBy { busLine -> busLine.code.toInt() }
 
         arguments?.let {

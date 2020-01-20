@@ -1,6 +1,7 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.main.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,20 +15,22 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.dbflow5.config.FlowConfig
-import com.dbflow5.config.FlowManager
-import com.dbflow5.structure.save
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.raizlabs.android.dbflow.config.FlowConfig
+import com.raizlabs.android.dbflow.config.FlowManager
+import com.raizlabs.android.dbflow.kotlinextensions.save
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
+import tvz.filip.milkovic.smbraspored.ui.screens.busLineCard.BusLineCardFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragmentDirections
+import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainView
 import tvz.filip.milkovic.smbraspored.ui.screens.main.presenter.MainActivityPresenter
@@ -35,7 +38,9 @@ import tvz.filip.milkovic.smbraspored.ui.screens.mainNavbar.settings.SettingsAct
 import tvz.filip.milkovic.smbraspored.web.service.SmbAppServiceInterface
 
 class MainActivityView : AppCompatActivity(), MainView,
-    BusLineListFragment.OnListFragmentInteractionListener {
+    BusLineListFragment.OnListFragmentInteractionListener,
+    BusLineCardFragment.OnBusLineCardFragmentInteractionListener,
+    HomeFragment.OnFavouriteBusLineListFragmentInteractionListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var presenter: MainPresenter? = null
     private val TAG = "MainActivityView"
@@ -141,13 +146,26 @@ class MainActivityView : AppCompatActivity(), MainView,
                     run {
                         result.forEach {
                             it.save()
-
-                            // TODO when app has no connection to the server -> do something
+                            it.departures!!.forEach { depart ->
+                                depart.save()
+                            }
                         }
                     }
                 },
-                { error -> Log.e(TAG, "That ain't it chief $error.message") }
+                { error ->
+                    Log.e(TAG, "That ain't it chief $error.message")
+                    // TODO when app has no connection to the server -> do something smart
+                }
             )
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onFavouriteListFragmentInteraction(item: Model.BusLine?, view: View) {
+
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

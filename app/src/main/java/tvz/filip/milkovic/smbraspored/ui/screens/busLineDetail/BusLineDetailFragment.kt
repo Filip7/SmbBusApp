@@ -1,13 +1,15 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.busLineDetail
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.TimePicker
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -15,15 +17,18 @@ import androidx.navigation.fragment.navArgs
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
+import kotlinx.android.synthetic.main.bus_line_detail_fragment.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import tvz.filip.milkovic.smbraspored.BuildConfig
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
+import tvz.filip.milkovic.smbraspored.ui.screens.busLineCard.BusLineCardFragment
 import tvz.filip.milkovic.smbraspored.web.service.SmbAppServiceInterface
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 
 class BusLineDetailFragment : Fragment() {
@@ -65,11 +70,23 @@ class BusLineDetailFragment : Fragment() {
 
         busLine = args.selectedBusLine
 
-        val text: TextView = view.findViewById(R.id.message)
-        text.text = busLine?.name
+        var card = BusLineCardFragment.newInstance(busLine!!)
+        fragmentManager!!.beginTransaction().apply {
+            replace(R.id.busLineCard, card)
+            commit()
+        }
+
+        itemsswipetorefresh.setOnRefreshListener {
+            card = BusLineCardFragment.newInstance(busLine!!)
+            fragmentManager!!.beginTransaction().apply {
+                replace(R.id.busLineCard, card)
+                commit()
+            }
+
+            itemsswipetorefresh.isRefreshing = false
+        }
 
         getBusLinePdf(busLine!!.code)
-
     }
 
     override fun onDestroy() {
@@ -123,6 +140,34 @@ class BusLineDetailFragment : Fragment() {
         }
     }
 
+    @OnClick(R.id.button)
+    internal fun onSetAlarmButtonCalled() {
+        selectTimeAndCallAlarm()
+    }
+
+    private fun selectTimeAndCallAlarm() {
+        val mCurrentTime = Calendar.getInstance()
+
+        val hour = mCurrentTime.get(Calendar.HOUR_OF_DAY)
+        val min = mCurrentTime.get(Calendar.HOUR_OF_DAY)
+        val mTimePicker = TimePickerDialog(
+            activity,
+            TimePickerDialog.OnTimeSetListener { _: TimePicker, hour: Int, min: Int ->
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM)
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm")
+                intent.putExtra(AlarmClock.EXTRA_HOUR, hour)
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, min)
+
+                startActivity(intent)
+            },
+            hour,
+            min,
+            true
+        )
+
+        mTimePicker.setTitle("Adjust time")
+        mTimePicker.show()
+    }
 
     private fun saveFileToDisk(body: ResponseBody, code: String) {
         try {

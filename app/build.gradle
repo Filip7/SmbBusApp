@@ -34,7 +34,7 @@ android {
     }
 }
 
-def dbflow_version = "5.0.0-alpha1"
+def dbflow_version = "4.2.4"
 def dagger_version = "2.24"
 def butterknife_version = "10.2.0"
 def fresco_version = "2.0.0"
@@ -55,11 +55,12 @@ dependencies {
     implementation "com.facebook.fresco:fresco:${fresco_version}"
 
     // DBFlow
-    kapt "com.github.agrosner.dbflow:processor:${dbflow_version}"
-    implementation "com.github.agrosner.dbflow:core:${dbflow_version}"
-    implementation "com.github.agrosner.dbflow:lib:${dbflow_version}"
-    implementation "com.github.agrosner.dbflow:reactive-streams:${dbflow_version}"
-    implementation "com.github.agrosner.dbflow:contentprovider:${dbflow_version}"
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-rx2-kotlinextensions:${dbflow_version}"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
@@ -85,6 +86,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

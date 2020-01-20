@@ -1,7 +1,6 @@
 package tvz.filip.milkovic.smbraspored.database
 
-import com.dbflow5.annotation.Database
-import com.dbflow5.config.DBFlowDatabase
+import com.raizlabs.android.dbflow.annotation.Database
 
 @Database(version = 1)
-abstract class AppDatabase : DBFlowDatabase()
+abstract class AppDatabase
