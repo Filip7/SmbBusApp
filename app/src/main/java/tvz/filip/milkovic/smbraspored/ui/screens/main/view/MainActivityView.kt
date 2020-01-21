@@ -16,9 +16,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.raizlabs.android.dbflow.kotlinextensions.save
@@ -31,6 +29,7 @@ import tvz.filip.milkovic.smbraspored.ui.screens.busLineCard.BusLineCardFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment
 import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragmentDirections
 import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragment
+import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragmentDirections
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainView
 import tvz.filip.milkovic.smbraspored.ui.screens.main.presenter.MainActivityPresenter
@@ -60,7 +59,6 @@ class MainActivityView : AppCompatActivity(), MainView,
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        initFloatingActionButton()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -93,15 +91,6 @@ class MainActivityView : AppCompatActivity(), MainView,
     }
 
     override fun initView() {
-        initFloatingActionButton()
-    }
-
-    private fun initFloatingActionButton() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -164,9 +153,9 @@ class MainActivityView : AppCompatActivity(), MainView,
     }
 
     override fun onFavouriteListFragmentInteraction(item: Model.BusLine?, view: View) {
+        val action = HomeFragmentDirections.actionNavHomeToBusLineDetailFragment(item)
 
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.findNavController().navigate(action)
     }
-
 
 }

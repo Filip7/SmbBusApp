@@ -25,7 +25,7 @@ interface SmbAppServiceInterface {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.0.2.2:8080")
+                .baseUrl("http://192.168.1.84:3000")
                 .build()
 
             return retrofit.create(SmbAppServiceInterface::class.java)

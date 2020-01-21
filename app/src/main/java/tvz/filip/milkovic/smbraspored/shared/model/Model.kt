@@ -35,7 +35,7 @@ object Model : Parcelable {
         @Column var typeOfDay: TypeOfDay = TypeOfDay.WEEK_DAY,
         @Column var startingPointIsFirstListed: Int = 0
     ) : Parcelable {
-        fun getDepartureTimeInLocalDateTime(): LocalTime {
+        fun getDepartureTimeInLocalTime(): LocalTime {
             return LocalTime.parse(departureTime)
         }
     }

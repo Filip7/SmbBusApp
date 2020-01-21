@@ -13,7 +13,8 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "tvz.filip.milkovic.smbraspored"
-        minSdkVersion 28
+        vectorDrawables.useSupportLibrary = true
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

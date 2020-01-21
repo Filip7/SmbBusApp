@@ -1,22 +1,21 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.busLineDetail
 
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.AlarmClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager.widget.ViewPager
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.bus_line_detail_fragment.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -25,10 +24,10 @@ import tvz.filip.milkovic.smbraspored.BuildConfig
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 import tvz.filip.milkovic.smbraspored.ui.screens.busLineCard.BusLineCardFragment
+import tvz.filip.milkovic.smbraspored.ui.screens.busLineDetail.tabLayout.ViewPagerAdapter
 import tvz.filip.milkovic.smbraspored.web.service.SmbAppServiceInterface
 import java.io.File
 import java.io.FileOutputStream
-import java.util.*
 
 
 class BusLineDetailFragment : Fragment() {
@@ -57,6 +56,7 @@ class BusLineDetailFragment : Fragment() {
         val root = inflater.inflate(R.layout.bus_line_detail_fragment, container, false)
         unbinder = ButterKnife.bind(this, root!!)
 
+
         return root
     }
 
@@ -72,14 +72,23 @@ class BusLineDetailFragment : Fragment() {
 
         var card = BusLineCardFragment.newInstance(busLine!!)
         fragmentManager!!.beginTransaction().apply {
-            replace(R.id.busLineCard, card)
+            replace(R.id.placeholderForCards, card)
             commit()
         }
+
+        val viewPager = activity!!.findViewById(R.id.viewPager) as ViewPager
+        val tabLayout = activity!!.findViewById(R.id.tabLayout) as TabLayout
+
+        val adapter = ViewPagerAdapter(context!!, childFragmentManager)
+        adapter.busLine = busLine
+
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
 
         itemsswipetorefresh.setOnRefreshListener {
             card = BusLineCardFragment.newInstance(busLine!!)
             fragmentManager!!.beginTransaction().apply {
-                replace(R.id.busLineCard, card)
+                replace(R.id.placeholderForCards, card)
                 commit()
             }
 
@@ -118,8 +127,8 @@ class BusLineDetailFragment : Fragment() {
         }
     }
 
-    @OnClick(R.id.button2)
-    internal fun onPdfDownloadButtonClicked() {
+    @OnClick(R.id.fab)
+    internal fun onPdfDownloadFabClicked() {
         val pdfFile =
             File(context!!.getExternalFilesDir(null).toString() + "/" + busLine?.code + ".pdf")
         val contentUri: Uri = FileProvider.getUriForFile(
@@ -138,35 +147,6 @@ class BusLineDetailFragment : Fragment() {
         } else {
             Log.e("", "Cannot start activity to open PDF file " + busLine?.code + ".pdf")
         }
-    }
-
-    @OnClick(R.id.button)
-    internal fun onSetAlarmButtonCalled() {
-        selectTimeAndCallAlarm()
-    }
-
-    private fun selectTimeAndCallAlarm() {
-        val mCurrentTime = Calendar.getInstance()
-
-        val hour = mCurrentTime.get(Calendar.HOUR_OF_DAY)
-        val min = mCurrentTime.get(Calendar.HOUR_OF_DAY)
-        val mTimePicker = TimePickerDialog(
-            activity,
-            TimePickerDialog.OnTimeSetListener { _: TimePicker, hour: Int, min: Int ->
-                val intent = Intent(AlarmClock.ACTION_SET_ALARM)
-                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm")
-                intent.putExtra(AlarmClock.EXTRA_HOUR, hour)
-                intent.putExtra(AlarmClock.EXTRA_MINUTES, min)
-
-                startActivity(intent)
-            },
-            hour,
-            min,
-            true
-        )
-
-        mTimePicker.setTitle("Adjust time")
-        mTimePicker.show()
     }
 
     private fun saveFileToDisk(body: ResponseBody, code: String) {

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="10dp"
     tools:context=".ui.screens.busLineCard.BusLineCardFragment">
@@ -28,8 +28,13 @@
             <TextView
                 android:id="@+id/cardNameOfBusLine"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name of the line" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="Name of the line"
+                android:textAlignment="center"
+                android:textSize="17sp" />
 
         </TableRow>
 
@@ -44,18 +49,26 @@
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="Sljedeci polazak iz {}: " />
 
             <TextView
                 android:id="@+id/nextDepartureFromRoot"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="00:00" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_idle_alarm" />
 
         </TableRow>
 
@@ -70,14 +83,26 @@
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="Sljedeci polazak iz {}" />
 
             <TextView
                 android:id="@+id/nextDepartureFromDest"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="00:00" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_idle_alarm" />
         </TableRow>
 
     </TableLayout>

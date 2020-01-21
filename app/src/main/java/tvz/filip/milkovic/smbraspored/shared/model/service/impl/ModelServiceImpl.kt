@@ -15,10 +15,7 @@ class ModelServiceImpl {
             val departures = busLine.departures ?: return null
             var currentTime = LocalDateTime.now().toLocalTime()
 
-
             var returnVal = getDeparture(departures, currentTime, startingPointIsFirstListed)
-
-
             if (returnVal == null) {
                 currentTime = LocalTime.MIDNIGHT
                 returnVal = getDeparture(departures, currentTime, startingPointIsFirstListed)
@@ -35,11 +32,11 @@ class ModelServiceImpl {
             return departures.filter {
                 it.startingPointIsFirstListed == startingPointIsFirstListed
             }.filter {
-                it.getDepartureTimeInLocalDateTime().isAfter(currentTime)
+                it.getDepartureTimeInLocalTime().isAfter(currentTime)
             }.sortedWith(compareBy {
                 it.departureTime
             }).minWith(compareBy {
-                abs(it.getDepartureTimeInLocalDateTime().toNanoOfDay() - currentTime.toNanoOfDay())
+                abs(it.getDepartureTimeInLocalTime().toNanoOfDay() - currentTime.toNanoOfDay())
             })
         }
     }

@@ -1,13 +1,17 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.busLineCard
 
+import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -19,6 +23,7 @@ import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.FavBusLine_Table
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 import tvz.filip.milkovic.smbraspored.shared.model.service.impl.ModelServiceImpl
+import java.time.LocalTime
 
 private const val BUS_LINE = "busLine"
 
@@ -77,11 +82,21 @@ class BusLineCardFragment : Fragment() {
         val text: TextView = view.findViewById(R.id.cardNameOfBusLine)
         text.text = busLine?.name
 
+        val delimiter = "-"
+        val partsOfName = busLine?.name?.split(delimiter, ignoreCase = true)
+
         val nextDepartRoot: TextView = view.findViewById(R.id.nextDepartureFromRoot)
         nextDepartRoot.text = nextDepartureFromRoot?.departureTime?.take(5)
 
         val nextDepartDest: TextView = view.findViewById(R.id.nextDepartureFromDest)
         nextDepartDest.text = nextDepartureFromDest?.departureTime?.take(5)
+
+        val textFromRoot: TextView = view.findViewById(R.id.textView3)
+        textFromRoot.text = "Polazak iz ".plus(partsOfName?.first()?.trim())
+
+        val textFromDest: TextView = view.findViewById(R.id.textView2)
+        textFromDest.text = "Polazak iz ".plus(partsOfName?.last()?.trim())
+
 
         val checkBox: CheckBox = view.findViewById(R.id.addToFavourites) as CheckBox
         checkBox.isChecked = favourite
@@ -129,6 +144,37 @@ class BusLineCardFragment : Fragment() {
                 }
             }
         }
+    }
+
+    @OnClick(R.id.imageButton)
+    internal fun onSetAlarmFromRootButtonCalled() {
+        selectTimeAndCallAlarm(nextDepartureFromRoot!!.getDepartureTimeInLocalTime())
+    }
+
+    @OnClick(R.id.imageButton2)
+    internal fun onSetAlarmFromDestButtonCalled() {
+        selectTimeAndCallAlarm(nextDepartureFromDest!!.getDepartureTimeInLocalTime())
+    }
+
+    private fun selectTimeAndCallAlarm(time: LocalTime) {
+        val timehalfHour = time.minusMinutes(30)
+        val mTimePicker = TimePickerDialog(
+            activity,
+            TimePickerDialog.OnTimeSetListener { _: TimePicker, hour: Int, min: Int ->
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM)
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm")
+                intent.putExtra(AlarmClock.EXTRA_HOUR, hour)
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, min)
+
+                startActivity(intent)
+            },
+            timehalfHour.hour,
+            timehalfHour.minute,
+            true
+        )
+
+        mTimePicker.setTitle("Adjust time")
+        mTimePicker.show()
     }
 
     /**

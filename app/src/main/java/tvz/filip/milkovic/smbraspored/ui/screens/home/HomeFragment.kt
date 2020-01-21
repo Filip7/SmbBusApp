@@ -1,5 +1,6 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -88,6 +89,15 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFavouriteBusLineListFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener") as Throwable
+        }
     }
 
     override fun onDetach() {

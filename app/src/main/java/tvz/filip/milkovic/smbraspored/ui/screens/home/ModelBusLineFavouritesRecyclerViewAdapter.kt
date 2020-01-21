@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tvz.filip.milkovic.smbraspored.R
@@ -39,6 +40,13 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         val checkBox: CheckBox = view.findViewById(R.id.addToFavourites)
         checkBox.visibility = View.GONE
 
+        val imgButton1: ImageButton = view.findViewById(R.id.imageButton)
+        val imgButton2: ImageButton = view.findViewById(R.id.imageButton2)
+
+        imgButton1.visibility = View.INVISIBLE
+        imgButton2.visibility = View.INVISIBLE
+
+
         return ViewHolder(view)
     }
 
@@ -47,9 +55,16 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         holder.addToFavouritesCheckBox.isChecked = true
         holder.cardNameOfBusLineTextVIew.text = item.name
         holder.nextDepartureFromRoot.text =
-            ModelServiceImpl.getNextDeparture(item, 1)?.departureTime
+            ModelServiceImpl.getNextDeparture(item, 1)?.departureTime?.take(5)
         holder.nextDepartureFromDest.text =
-            ModelServiceImpl.getNextDeparture(item, 0)?.departureTime
+            ModelServiceImpl.getNextDeparture(item, 0)?.departureTime?.take(5)
+
+
+        val delimiter = "-"
+        val partsOfName = item.name.split(delimiter, ignoreCase = true)
+
+        holder.textFromRoot.text = "Polazak iz ".plus(partsOfName.first().trim())
+        holder.textFromDest.text = "Polazak iz ".plus(partsOfName.last().trim())
 
         with(holder.mView) {
             tag = item
@@ -64,6 +79,8 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         val cardNameOfBusLineTextVIew: TextView = mView.findViewById(R.id.cardNameOfBusLine)
         val nextDepartureFromRoot: TextView = mView.findViewById(R.id.nextDepartureFromRoot)
         val nextDepartureFromDest: TextView = mView.findViewById(R.id.nextDepartureFromDest)
+        val textFromRoot: TextView = mView.findViewById(R.id.textView3)
+        val textFromDest: TextView = mView.findViewById(R.id.textView2)
 
         override fun toString(): String {
             return super.toString() + " '" + cardNameOfBusLineTextVIew.text + "'"
