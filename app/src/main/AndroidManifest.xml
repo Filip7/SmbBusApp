@@ -16,10 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.screens.mainNavbar.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.screens.main.view.MainActivityView" />
-        <activity
             android:name=".ui.screens.main.view.MainActivityView"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.screens.mainNavbar.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.screens.main.view.MainActivityView" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

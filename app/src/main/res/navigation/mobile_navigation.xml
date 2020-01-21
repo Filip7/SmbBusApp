@@ -22,12 +22,6 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="tvz.filip.milkovic.smbraspored.ui.screens.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
         android:id="@+id/nav_busLineList"
         android:name="tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment"
         android:label="@string/menu_busLinesList"
@@ -38,17 +32,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="tvz.filip.milkovic.smbraspored.ui.screens.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="tvz.filip.milkovic.smbraspored.ui.screens.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
-    <fragment
         android:id="@+id/busLineDetailFragment"
         android:name="tvz.filip.milkovic.smbraspored.ui.screens.busLineDetail.BusLineDetailFragment"
         android:label="@string/buslinedetail">
@@ -58,4 +41,8 @@
             app:argType="tvz.filip.milkovic.smbraspored.shared.model.Model$BusLine"
             app:nullable="true" />
     </fragment>
+    <activity
+        android:id="@+id/settings"
+        android:name="tvz.filip.milkovic.smbraspored.ui.screens.mainNavbar.settings.SettingsActivity"
+        android:label="SettingsActivity" />
 </navigation>

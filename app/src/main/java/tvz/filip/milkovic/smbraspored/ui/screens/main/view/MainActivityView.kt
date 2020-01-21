@@ -69,9 +69,7 @@ class MainActivityView : AppCompatActivity(), MainView,
                 R.id.nav_home,
                 R.id.nav_busLineList,
                 R.id.nav_gallery,
-                R.id.nav_slideshow,
-                R.id.nav_share,
-                R.id.nav_send
+                R.id.settings
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
