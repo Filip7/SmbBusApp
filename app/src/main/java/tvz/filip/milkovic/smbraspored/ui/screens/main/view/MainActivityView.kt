@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.material.navigation.NavigationView
 import com.raizlabs.android.dbflow.config.FlowConfig
@@ -33,7 +35,7 @@ import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragmentDirections
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainView
 import tvz.filip.milkovic.smbraspored.ui.screens.main.presenter.MainActivityPresenter
-import tvz.filip.milkovic.smbraspored.ui.screens.mainNavbar.settings.SettingsActivity
+import tvz.filip.milkovic.smbraspored.ui.screens.settings.SettingsActivity
 import tvz.filip.milkovic.smbraspored.web.service.SmbAppServiceInterface
 
 class MainActivityView : AppCompatActivity(), MainView,
@@ -84,6 +86,23 @@ class MainActivityView : AppCompatActivity(), MainView,
 
         // Fresco initialization
         Fresco.initialize(this)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        when (sharedPreferences.getString("theme_preference", "")) {
+            getString(R.string.theme_name_automatic) -> {
+                setTheme(R.style.AppThemeMain)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+            getString(R.string.theme_name_dark) -> {
+                setTheme(R.style.AppThemeDark)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            getString(R.string.theme_name_light) -> {
+                setTheme(R.style.AppThemeLight)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            getString(R.string.theme_name_holo) -> setTheme(R.style.AppThemeHolo)
+        }
 
         fetchAllBusLines()
     }

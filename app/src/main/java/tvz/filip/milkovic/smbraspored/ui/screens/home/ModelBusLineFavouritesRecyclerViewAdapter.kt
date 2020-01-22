@@ -52,6 +52,9 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
+
+        val context = holder.textFromDest.context
+
         holder.addToFavouritesCheckBox.isChecked = true
         holder.cardNameOfBusLineTextVIew.text = item.name
         holder.nextDepartureFromRoot.text =
@@ -63,8 +66,10 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         val delimiter = "-"
         val partsOfName = item.name.split(delimiter, ignoreCase = true)
 
-        holder.textFromRoot.text = "Polazak iz ".plus(partsOfName.first().trim())
-        holder.textFromDest.text = "Polazak iz ".plus(partsOfName.last().trim())
+        holder.textFromRoot.text =
+            context.getString(R.string.next_departure_text).plus(partsOfName.first().trim())
+        holder.textFromDest.text =
+            context.getString(R.string.next_departure_text).plus(partsOfName.last().trim())
 
         with(holder.mView) {
             tag = item

@@ -92,10 +92,12 @@ class BusLineCardFragment : Fragment() {
         nextDepartDest.text = nextDepartureFromDest?.departureTime?.take(5)
 
         val textFromRoot: TextView = view.findViewById(R.id.textView3)
-        textFromRoot.text = "Polazak iz ".plus(partsOfName?.first()?.trim())
+        textFromRoot.text =
+            getString(R.string.next_departure_text).plus(partsOfName?.first()?.trim())
 
         val textFromDest: TextView = view.findViewById(R.id.textView2)
-        textFromDest.text = "Polazak iz ".plus(partsOfName?.last()?.trim())
+        textFromDest.text =
+            getString(R.string.next_departure_text).plus(partsOfName?.last()?.trim())
 
 
         val checkBox: CheckBox = view.findViewById(R.id.addToFavourites) as CheckBox
@@ -162,7 +164,7 @@ class BusLineCardFragment : Fragment() {
             activity,
             TimePickerDialog.OnTimeSetListener { _: TimePicker, hour: Int, min: Int ->
                 val intent = Intent(AlarmClock.ACTION_SET_ALARM)
-                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "New Alarm")
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, getString(R.string.text_alarm_message))
                 intent.putExtra(AlarmClock.EXTRA_HOUR, hour)
                 intent.putExtra(AlarmClock.EXTRA_MINUTES, min)
 
@@ -173,7 +175,7 @@ class BusLineCardFragment : Fragment() {
             true
         )
 
-        mTimePicker.setTitle("Adjust time")
+        mTimePicker.setTitle(getString(R.string.text_adjust_time))
         mTimePicker.show()
     }
 

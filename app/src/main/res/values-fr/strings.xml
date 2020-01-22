@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMB Horaires</string>
+    <string name="app_theme_settings_text">Sélectionnez un thème d\'application</string>
+    <string name="placeholder_text">Placeholder</string>
+    <string name="placeholder_time">00:00</string>
+    <string name="nav_header_desc">@string/app_name</string>
+    <string name="nav_header_subtitle">Bon voyage !</string>
+    <string name="nav_header_title">@string/app_name</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="alarm_header">Paramètres d\'alarme</string>
+    <string name="app_header">Paramètres d\'application</string>
+    <string name="buslinedetail">Détails de la ligne de bus</string>
+    <string name="menu_busLinesList">Ligne de bus</string>
+    <string name="menu_gallery">Galerie</string>
+    <string name="menu_home">Favoris</string>
+    <string name="next_departure_text">"Prochain départ "</string>
+    <string name="text_adjust_time">Ajuster le temps</string>
+    <string name="text_alarm_message">Nouvelle alarme</string>
+    <string name="text_no_favourite_busline">Vous n\'avez pas de lignes de bus préférées!</string>
+    <string name="theme_name_automatic">Automatique</string>
+    <string name="theme_name_dark">Sombre</string>
+    <string name="theme_name_light">Léger</string>
+    <string name="theme_name_holo">Holo YOLO</string>
+    <string name="type_of_day_saturday">Samedi</string>
+    <string name="type_of_day_sunday">Dimanche</string>
+    <string name="type_of_day_weekday">Jour de la semaine</string>
+    <string name="title_activity_settings">@string/action_settings</string>
+</resources>

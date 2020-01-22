@@ -4,14 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 import tvz.filip.milkovic.smbraspored.shared.model.TypeOfDay
-
-private val TAB_TITLES = arrayOf(
-    "Weekday",
-    "Saturday",
-    "Sunday"
-)
 
 class ViewPagerAdapter internal constructor(private val context: Context, fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -32,7 +27,7 @@ class ViewPagerAdapter internal constructor(private val context: Context, fm: Fr
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return TAB_TITLES[position]
+        return context.resources.getStringArray(R.array.type_of_day_names)[position]
     }
 
 }

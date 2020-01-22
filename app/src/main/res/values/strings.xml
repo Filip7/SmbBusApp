@@ -1,33 +1,41 @@
 <resources>
-    <string name="app_name">SMB Raspored</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="app_name">SMB Schedule</string>
+    <string name="nav_header_title">@string/app_name</string>
+    <string name="nav_header_subtitle">Enjoy your trip!</string>
+    <string name="nav_header_desc">@string/app_name</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Favourites</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_busLinesList">Bus lines</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="alarm_header">Alarm Settings</string>
+    <string name="app_header">App settings</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
     <!-- BusLine texts -->
     <string name="buslinedetail">Bus line details</string>
+    <string name="app_theme_settings_text">Select app theme</string>
+    <string name="alarm_offset_settings_text">Edit text preference</string>
+
+    <string name="theme_name_automatic">Automatic</string>
+    <string name="theme_name_light">Light</string>
+    <string name="theme_name_dark">Dark</string>
+    <string name="theme_name_holo">Holo YOLO</string>
+    <string name="placeholder_text">Placeholder</string>
+    <string name="next_departure_text">"Next departure "</string>
+    <string name="placeholder_time">00:00</string>
+    <string name="text_no_favourite_busline">You have no favourite bus lines!</string>
+
+    <string name="type_of_day_weekday">Weekday</string>
+    <string name="type_of_day_saturday">Saturday</string>
+    <string name="type_of_day_sunday">Sunday</string>
+    <string name="text_alarm_message">New Alarm</string>
+    <string name="text_adjust_time">Adjust time</string>
+    <string name="title_activity_settings">@string/action_settings</string>
 </resources>

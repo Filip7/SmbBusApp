@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMB Raspored</string>
+    <string name="app_theme_settings_text">Odaberi temu aplikacije</string>
+    <string name="placeholder_text">Placeholder</string>
+    <string name="placeholder_time">00:00</string>
+    <string name="action_settings">Postavke</string>
+    <string name="alarm_header">Postavke alarma</string>
+    <string name="app_header">Postavke aplikacije</string>
+    <string name="buslinedetail">Detalji linije</string>
+    <string name="menu_busLinesList">Autobusne linije</string>
+    <string name="menu_gallery">Galerija</string>
+    <string name="menu_home">Favoriti</string>
+    <string name="nav_header_desc">@string/app_name</string>
+    <string name="nav_header_subtitle">Uživajte u putovanju!</string>
+    <string name="nav_header_title">@string/app_name</string>
+    <string name="next_departure_text">"Sljedeći polazak "</string>
+    <string name="text_adjust_time">Postavi vrijeme</string>
+    <string name="text_alarm_message">Novi alarm</string>
+    <string name="text_no_favourite_busline">Nemate linija u favoritima</string>
+    <string name="theme_name_automatic">Automatska</string>
+    <string name="theme_name_dark">Tamna</string>
+    <string name="theme_name_light">Svijetla</string>
+    <string name="theme_name_holo">Holo YOLO</string>
+    <string name="type_of_day_saturday">Subota</string>
+    <string name="type_of_day_sunday">Nedjelja</string>
+    <string name="type_of_day_weekday">Radni dan</string>
+    <string name="title_activity_settings">@string/action_settings</string>
+</resources>

@@ -1,12 +1,14 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="app_themes_names">
+        <item>@string/theme_name_automatic</item>
+        <item>@string/theme_name_light</item>
+        <item>@string/theme_name_dark</item>
+        <item>@string/theme_name_holo</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="type_of_day_names">
+        <item>@string/type_of_day_weekday</item>
+        <item>@string/type_of_day_saturday</item>
+        <item>@string/type_of_day_sunday</item>
     </string-array>
 </resources>

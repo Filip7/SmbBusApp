@@ -20,14 +20,6 @@ class TabBusLineTimeSheetViewModel : ViewModel() {
         it
     }
 
-    val textId: LiveData<String> = Transformations.map(_index) {
-        "$it"
-    }
-
-    val text: LiveData<String> = Transformations.map(_busLine) {
-        "Hello world from section: ${it.name}"
-    }
-
     fun setIndex(index: Int) {
         _index.value = index
     }
