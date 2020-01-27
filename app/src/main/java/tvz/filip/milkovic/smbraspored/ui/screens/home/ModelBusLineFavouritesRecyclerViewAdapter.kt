@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 import tvz.filip.milkovic.smbraspored.shared.model.service.impl.ModelServiceImpl
+import tvz.filip.milkovic.smbraspored.ui.screens.home.view.HomeFragment
 
 /**
  * [RecyclerView.Adapter] that can display a [Model.BusLine] and makes a call to the
@@ -40,11 +41,11 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         val checkBox: CheckBox = view.findViewById(R.id.addToFavourites)
         checkBox.visibility = View.GONE
 
-        val imgButton1: ImageButton = view.findViewById(R.id.imageButton)
-        val imgButton2: ImageButton = view.findViewById(R.id.imageButton2)
+        val imgButton1: ImageButton = view.findViewById(R.id.alarm_departure_root)
+        val imgButton2: ImageButton = view.findViewById(R.id.alarm_departure_dest)
 
-        imgButton1.visibility = View.INVISIBLE
-        imgButton2.visibility = View.INVISIBLE
+        imgButton1.visibility = View.GONE
+        imgButton2.visibility = View.GONE
 
 
         return ViewHolder(view)
@@ -53,28 +54,27 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
 
-        val context = holder.textFromDest.context
-
-        holder.addToFavouritesCheckBox.isChecked = true
-        holder.cardNameOfBusLineTextVIew.text = item.name
-        holder.nextDepartureFromRoot.text =
-            ModelServiceImpl.getNextDeparture(item, 1)?.departureTime?.take(5)
-        holder.nextDepartureFromDest.text =
-            ModelServiceImpl.getNextDeparture(item, 0)?.departureTime?.take(5)
-
-
         val delimiter = "-"
         val partsOfName = item.name.split(delimiter, ignoreCase = true)
 
-        holder.textFromRoot.text =
-            context.getString(R.string.next_departure_text).plus(partsOfName.first().trim())
-        holder.textFromDest.text =
-            context.getString(R.string.next_departure_text).plus(partsOfName.last().trim())
+        holder.addToFavouritesCheckBox.isChecked = true
+        holder.cardNameOfBusLineTextVIew.text = item.name
+
+        holder.nextDepartureFromRoot.text =
+            partsOfName.first().trim().plus(getNextDepartureText(item, 1))
+
+        holder.nextDepartureFromDest.text =
+            partsOfName.last().trim().plus(getNextDepartureText(item, 0))
 
         with(holder.mView) {
             tag = item
             setOnClickListener(mOnClickListener)
         }
+    }
+
+    private fun getNextDepartureText(item: Model.BusLine, startingPointIsFirstListed: Int): String {
+        return ": " + ModelServiceImpl.getNextDeparture(item, startingPointIsFirstListed)
+            ?.departureTime?.take(5)
     }
 
     override fun getItemCount(): Int = mValues.size
@@ -84,8 +84,6 @@ class ModelBusLineFavouritesRecyclerViewAdapter(
         val cardNameOfBusLineTextVIew: TextView = mView.findViewById(R.id.cardNameOfBusLine)
         val nextDepartureFromRoot: TextView = mView.findViewById(R.id.nextDepartureFromRoot)
         val nextDepartureFromDest: TextView = mView.findViewById(R.id.nextDepartureFromDest)
-        val textFromRoot: TextView = mView.findViewById(R.id.textView3)
-        val textFromDest: TextView = mView.findViewById(R.id.textView2)
 
         override fun toString(): String {
             return super.toString() + " '" + cardNameOfBusLineTextVIew.text + "'"

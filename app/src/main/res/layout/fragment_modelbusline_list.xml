@@ -10,5 +10,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.screens.buslineList.BusLineListFragment"
+    tools:context=".ui.screens.buslineList.view.BusLineListFragment"
     tools:listitem="@layout/fragment_modelbusline" />

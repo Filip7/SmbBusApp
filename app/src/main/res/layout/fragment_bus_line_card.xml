@@ -1,110 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/card_rect"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    tools:context=".ui.screens.busLineCard.BusLineCardFragment">
+    android:elevation="2dp"
+    android:paddingBottom="5dp"
+    tools:context=".ui.screens.busLineCard.view.BusLineCardFragment">
 
-    <TableLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <CheckBox
+            android:id="@+id/addToFavourites"
+            style="?android:attr/starStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColorHighlight="#4CAF50"
+            android:textColorLink="#4CAF50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
-                android:id="@+id/addToFavourites"
-                style="?android:attr/starStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColorHighlight="#4CAF50"
-                android:textColorLink="#4CAF50" />
+        <TextView
+            android:id="@+id/cardNameOfBusLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@string/placeholder_text"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/addToFavourites"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/cardNameOfBusLine"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:text="@string/placeholder_text"
-                android:textAlignment="center"
-                android:textSize="17sp" />
 
-        </TableRow>
+        <TextView
+            android:id="@+id/nextDepartureText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/next_departure_text"
+            app:layout_constraintStart_toEndOf="@+id/addToFavourites"
+            app:layout_constraintTop_toBottomOf="@+id/cardNameOfBusLine" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/nextDepartureFromRoot"
+            style="@style/Next_departure_view"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/nextDepartureFromDest"
+            app:layout_constraintTop_toBottomOf="@+id/nextDepartureText" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/alarm_departure_root"
+            style="@style/Set_alarm_image_button"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/text_set_alarm_clock"
+            app:layout_constraintEnd_toEndOf="@+id/alarm_departure_dest"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/next_departure_text" />
+        <TextView
+            android:id="@+id/nextDepartureFromDest"
+            style="@style/Next_departure_view"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/alarm_departure_dest"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextDepartureFromRoot" />
 
-            <TextView
-                android:id="@+id/nextDepartureFromRoot"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/placeholder_time" />
+        <ImageButton
+            android:id="@+id/alarm_departure_dest"
+            style="@style/Set_alarm_image_button"
+            android:layout_marginTop="84dp"
+            android:contentDescription="@string/text_set_alarm_clock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/nextDepartureFromDest"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_lock_idle_alarm" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/next_departure_text" />
-
-            <TextView
-                android:id="@+id/nextDepartureFromDest"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/placeholder_time" />
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_lock_idle_alarm" />
-        </TableRow>
-
-    </TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

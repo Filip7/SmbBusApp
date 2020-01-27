@@ -14,7 +14,7 @@
     <string name="menu_busLinesList">Ligne de bus</string>
     <string name="menu_gallery">Galerie</string>
     <string name="menu_home">Favoris</string>
-    <string name="next_departure_text">"Prochain départ "</string>
+    <string name="next_departure_text">"Prochain départ de: "</string>
     <string name="text_adjust_time">Ajuster le temps</string>
     <string name="text_alarm_message">Nouvelle alarme</string>
     <string name="text_no_favourite_busline">Vous n\'avez pas de lignes de bus préférées!</string>
@@ -26,4 +26,6 @@
     <string name="type_of_day_sunday">Dimanche</string>
     <string name="type_of_day_weekday">Jour de la semaine</string>
     <string name="title_activity_settings">@string/action_settings</string>
+    <string name="gallery_title">Galerija slika</string>
+    <string name="text_set_alarm_clock">Postavite alarm</string>
 </resources>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_modelbusline.view.*
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
-import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment.OnListFragmentInteractionListener
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.view.BusLineListFragment.OnListFragmentInteractionListener
 
 /**
  * [RecyclerView.Adapter] that can display a [Model.BusLine] and makes a call to the

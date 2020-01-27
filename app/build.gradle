@@ -36,18 +36,12 @@ android {
 }
 
 def dbflow_version = "4.2.4"
-def dagger_version = "2.24"
 def butterknife_version = "10.2.0"
 def fresco_version = "2.0.0"
 def retrofit_version = "2.7.1"
 def nav_version = "2.1.0"
 
 dependencies {
-    // Dagger
-    implementation "com.google.dagger:dagger:${dagger_version}"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    kapt "com.google.dagger:dagger-compiler:${dagger_version}"
-
     // ButterKnife
     implementation "com.jakewharton:butterknife:${butterknife_version}"
     kapt "com.jakewharton:butterknife-compiler:${butterknife_version}"

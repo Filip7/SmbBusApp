@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import butterknife.BindView
+import butterknife.ButterKnife
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
 
@@ -22,6 +24,18 @@ import tvz.filip.milkovic.smbraspored.shared.model.Model
 class TabBusLineTimesheetFragment : Fragment() {
 
     private lateinit var pageViewModel: TabBusLineTimeSheetViewModel
+
+    @BindView(R.id.root_departure_name)
+    lateinit var rootDepartureName: TextView
+
+    @BindView(R.id.root_departure_list)
+    lateinit var rootDepartureList: TextView
+
+    @BindView(R.id.dest_departure_name)
+    lateinit var destDepartureName: TextView
+
+    @BindView(R.id.dest_departure_list)
+    lateinit var destDepartureList: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,33 +53,31 @@ class TabBusLineTimesheetFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_tab_bus_line_timesheet, container, false)
-        val text1: TextView = root.findViewById(R.id.details)
-        val text4: TextView = root.findViewById(R.id.textView4)
-        val text5: TextView = root.findViewById(R.id.textView5)
-        val text6: TextView = root.findViewById(R.id.textView6)
+
+        ButterKnife.bind(this, root)
+
+        val delimiter = "-"
 
         pageViewModel.busLine.observe(this, Observer<Model.BusLine> {
-            val delimiter = "-"
             val partsOfName = it.name.split(delimiter, ignoreCase = true)
 
-            text4.text = partsOfName.first().trim()
+            rootDepartureName.text = partsOfName.first().trim()
         })
 
         pageViewModel.busLine.observe(this, Observer<Model.BusLine> {
-            val delimiter = "-"
             val partsOfName = it.name.split(delimiter, ignoreCase = true)
 
-            text6.text = partsOfName.last().trim()
+            destDepartureName.text = partsOfName.last().trim()
         })
 
 
         pageViewModel.departures.observe(this, Observer<List<Model.Departure>> {
-            text1.text = it.filter { it.startingPointIsFirstListed == 1 }
+            rootDepartureList.text = it.filter { it.startingPointIsFirstListed == 1 }
                 .joinToString(", ") { departure -> departure.departureTime.take(5) }
         })
 
         pageViewModel.departures.observe(this, Observer<List<Model.Departure>> {
-            text5.text = it.filter { it.startingPointIsFirstListed == 0 }
+            destDepartureList.text = it.filter { it.startingPointIsFirstListed == 0 }
                 .joinToString(", ") { departure -> departure.departureTime.take(5) }
         })
 
@@ -73,7 +85,6 @@ class TabBusLineTimesheetFragment : Fragment() {
     }
 
     companion object {
-
         private const val ARG_NUMBER_OF_TAB = "arg_tab_number"
         private const val ARG_BUS_LINE = "arg_bus_line"
         private const val ARG_DEPARTURES = "arg_departures"
@@ -96,4 +107,5 @@ class TabBusLineTimesheetFragment : Fragment() {
                 }
             }
     }
+
 }

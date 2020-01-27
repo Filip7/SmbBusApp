@@ -1,14 +1,11 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.main.view
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -16,64 +13,54 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.material.navigation.NavigationView
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
-import com.raizlabs.android.dbflow.kotlinextensions.save
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import tvz.filip.milkovic.smbraspored.R
 import tvz.filip.milkovic.smbraspored.shared.model.Model
-import tvz.filip.milkovic.smbraspored.ui.screens.busLineCard.BusLineCardFragment
-import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragment
-import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.BusLineListFragmentDirections
-import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragment
-import tvz.filip.milkovic.smbraspored.ui.screens.home.HomeFragmentDirections
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.view.BusLineListFragment
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.view.BusLineListFragmentDirections
+import tvz.filip.milkovic.smbraspored.ui.screens.home.view.HomeFragment
+import tvz.filip.milkovic.smbraspored.ui.screens.home.view.HomeFragmentDirections
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.MainView
 import tvz.filip.milkovic.smbraspored.ui.screens.main.presenter.MainActivityPresenter
 import tvz.filip.milkovic.smbraspored.ui.screens.settings.SettingsActivity
-import tvz.filip.milkovic.smbraspored.web.service.SmbAppServiceInterface
 
 class MainActivityView : AppCompatActivity(), MainView,
     BusLineListFragment.OnListFragmentInteractionListener,
-    BusLineCardFragment.OnBusLineCardFragmentInteractionListener,
     HomeFragment.OnFavouriteBusLineListFragmentInteractionListener {
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private var presenter: MainPresenter? = null
-    private val TAG = "MainActivityView"
 
-    private val smbAppServiceServe by lazy {
-        SmbAppServiceInterface.create()
-    }
+    @BindView(R.id.drawer_layout)
+    lateinit var drawerLayout: DrawerLayout
 
-    var disposable: Disposable? = null
+    @BindView(R.id.toolbar)
+    lateinit var toolbar: Toolbar
+
+    @BindView(R.id.nav_view)
+    lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
 
         presenter = MainActivityPresenter(this)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home,
-                R.id.nav_busLineList,
-                R.id.nav_gallery,
-                R.id.settings
-            ), drawerLayout
-        )
+        appBarConfiguration =
+            AppBarConfiguration(presenter!!.getNavBarConfigurationItems(), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -87,27 +74,8 @@ class MainActivityView : AppCompatActivity(), MainView,
         // Fresco initialization
         Fresco.initialize(this)
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        when (sharedPreferences.getString("theme_preference", "")) {
-            getString(R.string.theme_name_automatic) -> {
-                setTheme(R.style.AppThemeMain)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            getString(R.string.theme_name_dark) -> {
-                setTheme(R.style.AppThemeDark)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            getString(R.string.theme_name_light) -> {
-                setTheme(R.style.AppThemeLight)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            getString(R.string.theme_name_holo) -> setTheme(R.style.AppThemeHolo)
-        }
-
-        fetchAllBusLines()
-    }
-
-    override fun initView() {
+        presenter?.changeTheme(this)
+        presenter?.fetchBusLines()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -134,44 +102,16 @@ class MainActivityView : AppCompatActivity(), MainView,
 
     override fun onPause() {
         super.onPause()
-        disposable?.dispose()
+        presenter?.disposeOfDisposable()
     }
 
     override fun onListFragmentInteraction(item: Model.BusLine?, view: View) {
         val action = BusLineListFragmentDirections.actionNavBusLineListToBusLineDetailFragment(item)
-
         view.findNavController().navigate(action)
-    }
-
-    private fun fetchAllBusLines() {
-        disposable = smbAppServiceServe.getAllBusLines()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    run {
-                        result.forEach {
-                            it.save()
-                            it.departures!!.forEach { depart ->
-                                depart.save()
-                            }
-                        }
-                    }
-                },
-                { error ->
-                    Log.e(TAG, "That ain't it chief $error.message")
-                    // TODO when app has no connection to the server -> do something smart
-                }
-            )
-    }
-
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onFavouriteListFragmentInteraction(item: Model.BusLine?, view: View) {
         val action = HomeFragmentDirections.actionNavHomeToBusLineDetailFragment(item)
-
         view.findNavController().navigate(action)
     }
 

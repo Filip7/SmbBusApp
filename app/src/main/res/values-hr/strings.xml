@@ -14,7 +14,7 @@
     <string name="nav_header_desc">@string/app_name</string>
     <string name="nav_header_subtitle">Uživajte u putovanju!</string>
     <string name="nav_header_title">@string/app_name</string>
-    <string name="next_departure_text">"Sljedeći polazak "</string>
+    <string name="next_departure_text">"Sljedeći polazak iz: "</string>
     <string name="text_adjust_time">Postavi vrijeme</string>
     <string name="text_alarm_message">Novi alarm</string>
     <string name="text_no_favourite_busline">Nemate linija u favoritima</string>
@@ -26,4 +26,6 @@
     <string name="type_of_day_sunday">Nedjelja</string>
     <string name="type_of_day_weekday">Radni dan</string>
     <string name="title_activity_settings">@string/action_settings</string>
+    <string name="gallery_title">Galerie d\'images</string>
+    <string name="text_set_alarm_clock">Régler le réveil</string>
 </resources>

@@ -47,7 +47,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="wrap_content"
-                    android:layout_height="500dp"
+                    android:layout_height="600dp"
                     android:gravity="center"
                     android:paddingHorizontal="2dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -64,10 +64,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        style="@style/Pdf_fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_picture_as_pdf_24px" />

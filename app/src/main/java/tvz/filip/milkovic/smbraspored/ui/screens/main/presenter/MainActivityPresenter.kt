@@ -1,5 +1,6 @@
 package tvz.filip.milkovic.smbraspored.ui.screens.main.presenter
 
+import android.content.Context
 import tvz.filip.milkovic.smbraspored.ui.screens.main.contract.MainContractInterface.*
 import tvz.filip.milkovic.smbraspored.ui.screens.main.model.MainActivityModel
 
@@ -9,12 +10,21 @@ class MainActivityPresenter(_view: MainView) :
     private var view: MainView = _view
     private var model: MainModel = MainActivityModel()
 
-    init {
-        view.initView()
+    override fun fetchBusLines() {
+        model.getBusLinesFromWebService()
     }
 
-    override fun initFloatingActionButton() {
-        return model.createFloatingActionButton()
+    override fun disposeOfDisposable() {
+        model.disposeOfDisposable()
     }
+
+    override fun changeTheme(context: Context) {
+        model.changeTheme(context)
+    }
+
+    override fun getNavBarConfigurationItems(): Set<Int> {
+        return model.getNavBarConfigurationItems()
+    }
+
 
 }

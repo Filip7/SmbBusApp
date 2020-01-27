@@ -5,7 +5,10 @@
     android:orientation="horizontal">
 
     <TextView
+        android:background="@drawable/busline_code_background"
+        android:elevation="2dp"
         android:id="@+id/item_number"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"

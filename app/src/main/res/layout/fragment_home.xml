@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.screens.home.HomeFragment"
+        tools:context=".ui.screens.home.view.HomeFragment"
         tools:listitem="@layout/fragment_bus_line_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

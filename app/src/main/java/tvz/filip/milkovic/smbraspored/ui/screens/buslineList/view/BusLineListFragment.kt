@@ -1,4 +1,4 @@
-package tvz.filip.milkovic.smbraspored.ui.screens.buslineList
+package tvz.filip.milkovic.smbraspored.ui.screens.buslineList.view
 
 import android.content.Context
 import android.os.Bundle
@@ -9,19 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.raizlabs.android.dbflow.kotlinextensions.from
-import com.raizlabs.android.dbflow.kotlinextensions.list
-import com.raizlabs.android.dbflow.kotlinextensions.select
 import tvz.filip.milkovic.smbraspored.R
-import tvz.filip.milkovic.smbraspored.shared.model.Departure_Table
 import tvz.filip.milkovic.smbraspored.shared.model.Model
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.ModelBusLineRecyclerViewAdapter
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.contract.ContractBusLineListInterface
+import tvz.filip.milkovic.smbraspored.ui.screens.buslineList.presenter.BusLineListFragmentPresenter
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
  * [BusLineListFragment.OnBusLineListFragmentInteractionListener] interface.
  */
-class BusLineListFragment : Fragment() {
+class BusLineListFragment : Fragment(), ContractBusLineListInterface.BusLineListView {
 
     private var columnCount = 1
 
@@ -29,15 +28,14 @@ class BusLineListFragment : Fragment() {
 
     private var localBusLinesList: MutableList<Model.BusLine> = ArrayList()
 
+    private var presenter: ContractBusLineListInterface.BusLineListPresenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        localBusLinesList = (select.from(Model.BusLine::class)).list
-        localBusLinesList.forEach {
-            it.departures =
-                (select.from(Model.Departure::class).where(Departure_Table.busLineId.eq(it.id))).list
-        }
-        localBusLinesList.sortBy { busLine -> busLine.code.toInt() }
+        presenter = BusLineListFragmentPresenter(this)
+
+        localBusLinesList = presenter!!.getAllBusLinesAndDepartures()
 
         arguments?.let {
             columnCount = localBusLinesList.size
@@ -72,7 +70,7 @@ class BusLineListFragment : Fragment() {
         if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener") as Throwable
+            throw RuntimeException("$context must implement OnListFragmentInteractionListener")
         }
     }
 
