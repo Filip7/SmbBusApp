@@ -23,6 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/schedule_text"
+                    style="@style/Schedule_text_style"
+                    android:text="@string/schedule_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/placeholderForCards" />
+
                 <FrameLayout
                     android:id="@+id/placeholderForCards"
                     android:layout_width="wrap_content"
@@ -40,9 +49,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/placeholderForCards" />
+                    app:layout_constraintTop_toBottomOf="@+id/schedule_text" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
@@ -52,9 +61,11 @@
                     android:paddingHorizontal="2dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+                </androidx.viewpager.widget.ViewPager>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

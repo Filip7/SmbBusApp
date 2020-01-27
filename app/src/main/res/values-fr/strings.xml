@@ -28,4 +28,5 @@
     <string name="title_activity_settings">@string/action_settings</string>
     <string name="gallery_title">Galerija slika</string>
     <string name="text_set_alarm_clock">Postavite alarm</string>
+    <string name="schedule_text">Horaires</string>
 </resources>

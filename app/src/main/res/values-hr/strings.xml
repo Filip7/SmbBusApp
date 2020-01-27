@@ -28,4 +28,5 @@
     <string name="title_activity_settings">@string/action_settings</string>
     <string name="gallery_title">Galerie d\'images</string>
     <string name="text_set_alarm_clock">Régler le réveil</string>
+    <string name="schedule_text">Raspored polaska</string>
 </resources>

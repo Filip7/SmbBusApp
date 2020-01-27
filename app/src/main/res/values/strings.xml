@@ -34,4 +34,5 @@
     <string name="title_activity_settings">@string/action_settings</string>
     <string name="text_set_alarm_clock">Set alarm clock</string>
     <string name="gallery_title">Image gallery</string>
+    <string name="schedule_text">Schedule of departures</string>
 </resources>
