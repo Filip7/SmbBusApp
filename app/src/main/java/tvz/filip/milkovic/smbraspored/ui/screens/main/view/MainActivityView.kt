@@ -54,6 +54,8 @@ class MainActivityView : AppCompatActivity(), MainView,
 
         presenter = MainActivityPresenter(this)
 
+        presenter?.fetchBusLines()
+
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -75,7 +77,6 @@ class MainActivityView : AppCompatActivity(), MainView,
         Fresco.initialize(this)
 
         presenter?.changeTheme(this)
-        presenter?.fetchBusLines()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
